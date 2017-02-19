@@ -5,11 +5,15 @@
   "main": "app.js",
   "scripts": {
     "download": "node download.js",
+    "start": "node app.js",
     "test": "./node_modules/jasmine/bin/jasmine.js"
   },
   "author": "mtso",
   "license": "ISC",
   "devDependencies": {
     "jasmine": "^2.5.3"
+  },
+  "dependencies": {
+    "terminal-kit": "^0.26.1"
   }
 }
