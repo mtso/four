@@ -5,17 +5,21 @@ var fs = require('fs');
 var unirest = require('unirest');
 var path = require('path');
 var Q = require('q');
+var Datastore = require('nedb');
 
+var beginsWithA = beginsWithLetter('a');
 var word_file_path = path.join(__dirname, 'data/four-letter-words.txt');
+var db = new Datastore({ filename: './data/definitionsA.db', autoload: true });
 
 function requestString(word) {
   return 'https://wordsapiv1.p.mashape.com/words/' + word + '/definitions';
 }
 
 function save(result) {
-  var filepath = './data/definition-' + word + '.txt';
-  var data = JSON.stringify(result.body);
-  fs.writeFile(filepath, data, checkError);
+  // var filepath = './data/definition-' + word + '.txt';
+  // var data = JSON.stringify(result.body);
+  // fs.writeFile(filepath, data, checkError);
+  db.insert(result.body);
 }
 
 function checkError(err) {
@@ -46,18 +50,22 @@ function beginsWithLetter(letter) {
   }
 }
 
-var beginsWithA = beginsWithLetter('a');
-
-// begin download
 parseWords(word_file_path)
   .then(function(words) {
-    console.log(words.filter(beginsWithA));
+    words = words.filter(beginsWithA);
+    words.forEach(function(word) {
+      var req = requestString(word);
+      unirest.get(req)
+        .header('X-Mashape-Key', process.env.MASHAPE_KEY)
+        .header('Accept', 'application/json')
+        .end(save);
+    });
   })
   .catch(function(err) {
     console.error(err);
   });
 
-
+// begin download
 // word = process.argv[2];
 // if (word) {
 //   var req = requestString(word);
