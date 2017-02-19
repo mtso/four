@@ -2,8 +2,9 @@
   "name": "word",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "download": "node download.js",
     "test": "./node_modules/jasmine/bin/jasmine.js"
   },
   "author": "mtso",
