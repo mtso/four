@@ -6,12 +6,14 @@
   "scripts": {
     "download": "torus run node download.js",
     "start": "node app.js",
-    "test": "./node_modules/jasmine/bin/jasmine.js"
+    "test": "./node_modules/jasmine/bin/jasmine.js",
+    "build": "webpack"
   },
   "author": "mtso",
   "license": "ISC",
   "devDependencies": {
-    "jasmine": "^2.5.3"
+    "jasmine": "^2.5.3",
+    "webpack": "^2.2.1"
   },
   "dependencies": {
     "nedb": "^1.8.0",

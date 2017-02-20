@@ -9,7 +9,7 @@ var Datastore = require('nedb');
 
 var beginsWithA = beginsWithLetter('a');
 var word_file_path = path.join(__dirname, 'data/four-letter-words.txt');
-var db = new Datastore({ filename: './data/definitionsA.db', autoload: true });
+var db = new Datastore({ filename: './data/definitions-3.db', autoload: true });
 
 function requestString(word) {
   return 'https://wordsapiv1.p.mashape.com/words/' + word + '/definitions';
@@ -19,7 +19,10 @@ function save(result) {
   // var filepath = './data/definition-' + word + '.txt';
   // var data = JSON.stringify(result.body);
   // fs.writeFile(filepath, data, checkError);
-  db.insert(result.body);
+  if (result.body.word) {
+    db.insert(result.body);
+    console.log('saving ' + result.body.word);
+  }
 }
 
 function checkError(err) {
@@ -50,9 +53,16 @@ function beginsWithLetter(letter) {
   }
 }
 
+var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
+
 parseWords(word_file_path)
   .then(function(words) {
-    words = words.filter(beginsWithA);
+    // words = words.filter(beginsWithA);
+    words = words.filter(function(word) {
+      return letters.some(function(letter) {
+        return beginsWithLetter(letter)(word);
+      });
+    });
     words.forEach(function(word) {
       var req = requestString(word);
       unirest.get(req)
