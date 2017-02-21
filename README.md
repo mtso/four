@@ -1,3 +1,3 @@
 # word
 
-An app to help learn the definition of four-letter words.
+An app to help learn the definition of `[a-z]{4}` four-letter words.

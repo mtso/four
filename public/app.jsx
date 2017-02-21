@@ -1,20 +1,42 @@
 
-// const Prompt = React.createClass();
+const w = wordDefinitions;
 
-const Hello = React.createClass({
+const WordList = React.createClass({
   render() {
-    return <h1>HELLO WORLD</h1>;
+    var words = this.props.words;
+    words = words.map(word => ({ word, anchor: '#' + word }) ); // add anchor tag to words
+
+    return <ul>
+      {words.map(word =>
+        <li><a href={word.anchor}>{word.word}</a></li>
+      )}
+    </ul>;
   }
 });
 
-// window.onload = () => {
-//   ReactDOM.render(<div id="app">
-//     <Hello />
-//     <script>console.log('hi~');</script>
-//   </div>, document.body);
-// }
+const DefinitionPage = React.createClass({
+  renderDefinition(word) {
+    const definitions = w.define(word);
 
-ReactDOM.render(<div id="app">
-  <Hello />
-  <script>console.log('hi~');</script>
-</div>, document.body);
+    return <div>
+    <h1 id={word}>{word}</h1>
+    <p>{definitions[0]}</p>
+    </div>;
+  },
+  render() {
+    return <div id="content">
+    {this.props.words.map(this.renderDefinition)}
+    </div>;
+  }
+})
+
+var words = w.getWords();
+
+ReactDOM.render(<div id="app" className="row">
+  <div className="large-1 columns">
+    <WordList words={words} />
+  </div>
+  <div className="large-11 columns">
+    <DefinitionPage words={words} />
+  </div>
+</div>, document.getElementById('content'));

@@ -3,7 +3,10 @@ module.exports = {
     "aahs",
     "aals",
     "abac",
-    "cafe"
+    "byte",
+    "cafe",
+    "cava",
+    "dabs"
   ],
   "definitions": {
     "aahs": [
@@ -15,10 +18,20 @@ module.exports = {
     "abac": [
       "A type of nomogram in which the required value is determined by use of a ruler or other straight edge."
     ],
+    "byte": [
+      "A group of binary digits or bits (usually eight) operated on as a unit."
+    ],
     "cafe": [
       "A small restaurant selling light meals and drinks.",
       "A bar or nightclub.",
       "A shop selling sweets, cigarettes, newspapers, etc. and staying open after normal hours."
+    ],
+    "cava": [
+      "A Spanish sparkling wine made in the same way as champagne."
+    ],
+    "dabs": [
+      "Press against (something) lightly several times with a piece of absorbent material in order to clean or dry it or to apply a substance.",
+      "Strike with a light blow."
     ]
   }
 };

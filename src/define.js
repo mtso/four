@@ -17,7 +17,8 @@ function search(text) {
 
 module.exports = {
   define: define,
-  search: search
+  search: search,
+  getWords: words
 }
 
 // function(word, callback) {

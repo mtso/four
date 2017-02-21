@@ -26,4 +26,10 @@ describe('define', function() {
     expect(w.search('a')).toEqual(expected);
     expect(w.search('aa')).toEqual(expected.slice(0, 2));
   });
+
+  it('should show that word-list and definition-list are the same length', function() {
+    var words = w.words();
+    var definitions = w.definitions();
+    expect(words.length).toEqual(definitions.length);
+  });
 });

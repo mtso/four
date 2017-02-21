@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -257,15 +257,35 @@ process.umask = function() { return 0; };
 /***/ (function(module, exports, __webpack_require__) {
 
 var Q = __webpack_require__(2);
+var data = __webpack_require__(6);
 
-module.exports = function(word, callback) {
-  var deferred = Q.defer();
-  
-  return deferred.promise;
-
-  var definition = '';
-  return callback(definition);
+function define(word) {
+  return data.definitions[word];
 }
+
+function words() {
+  return data.words;
+}
+
+function search(text) {
+  return data.words.filter(function(word) {
+    return text === word.substring(0, text.length);
+  });
+}
+
+module.exports = {
+  define: define,
+  search: search,
+  getWords: words
+}
+
+// function(word, callback) {
+//   return define(word);
+//   // var deferred = Q.defer();
+//   // return deferred.promise;
+//   // var definition = '';
+//   // return callback(definition);
+// }
 
 
 /***/ }),
@@ -2604,9 +2624,67 @@ module.exports = g;
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  "words": [
+    "aahs",
+    "aals",
+    "abac",
+    "byte",
+    "cafe",
+    "cava",
+    "dabs"
+  ],
+  "definitions": {
+    "aahs": [
+      "Used to express pleasure, satisfaction, surprise, or great joy."
+    ],
+    "aals": [
+      "The Indian mulberry or noni (Morinda citrifolia, Morinda tinctoria), a shrub found in Southeast Asia, the East Indies and the Pacific islands as far as French Polynesia."
+    ],
+    "abac": [
+      "A type of nomogram in which the required value is determined by use of a ruler or other straight edge."
+    ],
+    "byte": [
+      "A group of binary digits or bits (usually eight) operated on as a unit."
+    ],
+    "cafe": [
+      "A small restaurant selling light meals and drinks.",
+      "A bar or nightclub.",
+      "A shop selling sweets, cigarettes, newspapers, etc. and staying open after normal hours."
+    ],
+    "cava": [
+      "A Spanish sparkling wine made in the same way as champagne."
+    ],
+    "dabs": [
+      "Press against (something) lightly several times with a piece of absorbent material in order to clean or dry it or to apply a substance.",
+      "Strike with a light blow."
+    ]
+  }
+};
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var define = __webpack_require__(1);
+// var define = require('./define.js');
+// var path = require('path');
+
+// if (typeof localStorage === 'undefined' || localStorage === null) {
+//   var LocalStorage = require('node-localstorage').LocalStorage;
+//   var localStoragePath = path.join(__dirname, '../data/word-localstore');
+//   localStorage = new LocalStorage(localStoragePath);
+// }
+
+// localStorage.setItem('myFirstKey', 'myFirstValue');
+// console.log(localStorage.getItem('myFirstKey'));
+
+var wordDefinitions = __webpack_require__(1);
+
+// Attach our object to the window so that we can
+// access our functions from jsx.
+window.wordDefinitions = wordDefinitions;
 
 /***/ })
 /******/ ]);
