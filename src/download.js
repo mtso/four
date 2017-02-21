@@ -45,6 +45,20 @@ function parseWords(word_file_path) {
     deferred.resolve(words);
   });
   return deferred.promise;
+
+  var promise = new Promise( function(resolve, reject) {
+    fs.readFile(word_file_path, 'utf8', function(err, data) {
+      if (err) {
+        return reject(err);
+      } else {
+        data = data.replace(/\n{2}/g, ' ');
+        data = data.toLowerCase();
+        words = data.split(' ');
+        return resolve(words);
+      }
+    });
+  });
+  return promise;
 }
 
 function beginsWithLetter(letter) {
