@@ -6,7 +6,7 @@ function compare(text, reference) {
     ];
   }
   reference = reference.split(' ');
-  return reference.map(function(word) {
+  return reference.map(function(word) { // word => {
     var pattern = new RegExp('(' + word.toLowerCase() + ')[,.]{0,1}');
     var match = text.match(pattern);
     if (match === null) {
@@ -28,7 +28,8 @@ function renderHighlights(comparison) {
 }
 
 function highlight(text, reference) {
-  return renderHighlights(compare(text, reference));
+  var comparison = compare(text, reference);
+  return renderHighlights(comparison);
 }
 
 module.exports = {

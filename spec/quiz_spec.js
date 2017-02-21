@@ -6,11 +6,6 @@ describe('quiz', function() {
     var sampleText = 'a light press';
     var definition = 'Strike with a light blow.';
     var highlightedText = 'Strike with <mark>a</mark> <mark>light</mark> blow.';
-    // var matches = [
-    //   {isMatch: false, text: 'Strike with a '},
-    //   {isMatch: true, text: 'light'},
-    //   {isMatch: false, text: ' blow.'}
-    // ];
 
     expect(quiz.highlight(sampleText, definition)).toEqual(highlightedText);
   });
