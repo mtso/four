@@ -1,4 +1,3 @@
-// var define = require('./define.js');
 var path = require('path');
 var data = require('./data');
 
@@ -16,7 +15,11 @@ var localStorage = root.localStorage;
 
 const PROGRESS_KEY = 'progress';
 
-var initializeStorage = function() {
+var resetStorage = function() {
+  // delete storage
+}
+
+var initializeStorage = function(words) {
   progress = {};
   data.words.forEach(function(word) {
     progress[word] = false;
@@ -29,10 +32,6 @@ var loadProgress = function() {
   return JSON.parse(progressValue);
 }
 
-var getProgress = function() {
-
-}
-
 var save = function(progress) {
   var progressValue = JSON.stringify(progress);
   localStorage.setItem(PROGRESS_KEY, progressValue);
@@ -41,6 +40,10 @@ var save = function(progress) {
 var complete = function(word) {
   progress[word] = true;
   save(progress);
+}
+
+var isComplete = function(word) {
+  return progress[word];
 }
 
 if (localStorage.getItem(PROGRESS_KEY) === null) {
