@@ -6,7 +6,7 @@ const WordList = React.createClass({
     var words = this.props.words;
     words = words.map(word => ({ word, anchor: '#' + word }) ); // add anchor tag to words
 
-    return <ul>
+    return <ul className="vertical menu docs-nav">
       {words.map(word =>
         <li><a href={word.anchor}>{word.word}</a></li>
       )}
@@ -19,7 +19,7 @@ const DefinitionPage = React.createClass({
     const definitions = w.define(word);
 
     return <div>
-    <h1 id={word}>{word}</h1>
+    <h3 id={word}>{word}</h3>
     <p>{definitions[0]}</p>
     </div>;
   },
