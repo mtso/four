@@ -1,22 +1,25 @@
-var path = require('path');
+'use strict';
 
-var wordDefinitions = require('./define');
+~function() {
+  var root = (module && module.exports) || window;
 
-// Attach our object to the window so that we can
-// access our functions from jsx.
-// Or if the environment is node.js, attach to module.exports
-window.wordDefinitions = module.exports = wordDefinitions;
+  var path = require('path');
+  if (typeof root.localStorage === 'undefined' || root.localStorage === null) {
+    var LocalStorage = require('node-localstorage').LocalStorage;
+    var localStoragePath = path.join(__dirname, 'four-localstore');
+    var localStorage = new LocalStorage(localStoragePath);
+  }
 
-// TODO: need to somehow pass the environment's localStorage object
-// to save.js module for portability
-// Perhaps we can call initializeStorage at every
-// startup, passing in the localStorage object instantiated here in app.js?
-// Then resetStorage would take care of defining all the word
-// values as false.
+  var data = require('./data');
+  var Quiz = require('./quiz');
+  var DataManager = require('./storage');
 
+  var db = new DataManager(localStorage, data.words);
+  var quiz = new Quiz(db, data);
 
-if (typeof root.localStorage === 'undefined' || root.localStorage === null) {
-  var LocalStorage = require('node-localstorage').LocalStorage;
-  var localStoragePath = path.join(__dirname, 'word-localstore');
-  root.localStorage = new LocalStorage(localStoragePath);
-}
+  root.four = {
+    data: data,
+    quiz: quiz
+  }
+
+}();

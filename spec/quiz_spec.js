@@ -1,8 +1,9 @@
-var quiz = require('../src/quiz');
+var four = require('../src/app').four;
+var quiz = four.quiz;
 
 describe('quiz', function() {
   
-  describe('has a highlight function that', function() {
+  describe('highlight', function() {
     it('highlights the reference definition', function() {
       var sampleText = 'a light press';
       var definition = 'Strike with a light blow.';
@@ -25,6 +26,23 @@ describe('quiz', function() {
 
       expect(quiz.highlight(sampleText, definition)).toEqual(definition);
     });
+  });
+
+  describe('getWord', function() {
+    it('gets a random word', function() {
+      var word = quiz.getWord();
+      expect(word).toBeDefined();
+    });
+  });
+
+  describe('complete', function() {
+
+  })
+
+  describe('reset', function() {
+    it('resets the local storage progress', function() {
+
+    })
   })
   
 });

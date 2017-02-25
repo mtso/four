@@ -2,3 +2,5 @@ node_modules
 .DS_Store
 local
 word-localstore
+*-localstore
+*-localstorage
