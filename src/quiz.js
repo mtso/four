@@ -23,6 +23,10 @@ var nextWord = function(current) {
   return randomWord(incompleteWords);
 }
 
+var stripPunctuation = function(word) {
+  return word.replace(/[,.]/, '');
+}
+
 var compare = function(text, reference) {
   if (text === '') {
     return [
@@ -31,7 +35,7 @@ var compare = function(text, reference) {
   }
   reference = reference.split(' ');
   return reference.map(function(word) { // word => {
-    var pattern = new RegExp('(' + word.toLowerCase() + ')[,.]{0,1}');
+    var pattern = new RegExp('(' + stripPunctuation( word.toLowerCase() ) + ')[,.]{0,1}');
     var match = text.match(pattern);
     if (match === null) {
       return {isMatch: false, text: word};

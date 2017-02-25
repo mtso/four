@@ -1,4 +1,5 @@
 var data = require('./data');
+var path = require('path');
 
 const PROGRESS_KEY = 'progress';
 
@@ -13,7 +14,7 @@ var save = function(progress) {
 }
 
 var initializeStorage = function(storage, words) {
-  // db = storage;
+  db = storage;
   progress = {};
   data.words.forEach(function(word) {
     progress[word] = false;
@@ -75,4 +76,10 @@ if (localStorage.getItem(PROGRESS_KEY) === null) {
 } else {
   progress = loadProgress();
   console.log(progress);
+}
+
+module.exports = {
+  initializeStorage,
+  isComplete,
+  complete
 }
