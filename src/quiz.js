@@ -1,5 +1,29 @@
+var db = require('./db');
+var data = require('./data');
 
-function compare(text, reference) {
+/* 
+the quiz app needs to be able to 
+- get a random next word
+- compare a text with a word's reference definition
+- complete words by saving progress
+*/
+
+// returns a random word given an array of words
+var randomWord = function(words) {
+  var index = Math.floor( Math.random() * words.length );
+  return words[index];
+}
+
+// filter words for incomplete ones and not current word
+var nextWord = function(current) {
+  var incompleteWords = data.words.filter(db.isIncomplete);
+  incompleteWords.filter(function(word) {
+    return word !== current;
+  });
+  return randomWord(incompleteWords);
+}
+
+var compare = function(text, reference) {
   if (text === '') {
     return [
       {isMatch: false, text: reference}
@@ -17,7 +41,7 @@ function compare(text, reference) {
   });
 }
 
-function renderHighlights(comparison) {
+var renderHighlights = function(comparison) {
   return comparison.map(function(word) {
     if (word.isMatch) {
       return '<mark>' + word.text + '</mark>';
@@ -27,11 +51,12 @@ function renderHighlights(comparison) {
   }).join(' ');
 }
 
-function highlight(text, reference) {
+var highlight = function(text, reference) {
   var comparison = compare(text, reference);
   return renderHighlights(comparison);
 }
 
 module.exports = {
-  highlight
+  highlight,
+  nextWord
 };

@@ -1,3 +1,4 @@
+var path = require('path');
 
 var wordDefinitions = require('./define');
 
@@ -12,3 +13,10 @@ window.wordDefinitions = module.exports = wordDefinitions;
 // startup, passing in the localStorage object instantiated here in app.js?
 // Then resetStorage would take care of defining all the word
 // values as false.
+
+
+if (typeof root.localStorage === 'undefined' || root.localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  var localStoragePath = path.join(__dirname, 'word-localstore');
+  root.localStorage = new LocalStorage(localStoragePath);
+}

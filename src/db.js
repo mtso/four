@@ -1,8 +1,43 @@
-var path = require('path');
 var data = require('./data');
 
-var root = this;
-var progress;
+const PROGRESS_KEY = 'progress';
+
+var db;
+var progress = {};
+
+
+var save = function(progress) {
+  var progressValue = JSON.stringify(progress);
+  // localStorage.setItem(PROGRESS_KEY, progressValue);
+  db.setItem(PROGRESS_KEY, progressValue);
+}
+
+var initializeStorage = function(storage, words) {
+  // db = storage;
+  progress = {};
+  data.words.forEach(function(word) {
+    progress[word] = false;
+  });
+  save(progress);
+}
+
+var Progress = function(storageMethod, words) {
+  db = storageMethod;
+  words.forEach(function(word) {
+    progress[word] = false;
+  });
+}
+
+Progress.prototype.reset = function() {
+  var words = Object.keys(progress);
+  words.forEach(function(word) {
+    progress[word] = false;
+  });
+  save(progress);
+}
+
+Progress.prototype.save = function(){}
+
 
 if (typeof root.localStorage === 'undefined' || root.localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
@@ -13,28 +48,17 @@ if (typeof root.localStorage === 'undefined' || root.localStorage === null) {
 
 var localStorage = root.localStorage;
 
-const PROGRESS_KEY = 'progress';
+
+var db;
 
 var resetStorage = function() {
   // delete storage
 }
 
-var initializeStorage = function(words) {
-  progress = {};
-  data.words.forEach(function(word) {
-    progress[word] = false;
-  });
-  save(progress);
-}
 
 var loadProgress = function() {
   var progressValue = localStorage.getItem(PROGRESS_KEY);
   return JSON.parse(progressValue);
-}
-
-var save = function(progress) {
-  var progressValue = JSON.stringify(progress);
-  localStorage.setItem(PROGRESS_KEY, progressValue);
 }
 
 var complete = function(word) {
