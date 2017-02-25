@@ -1,5 +1,12 @@
 var data = require('../src/data');
-var four = require('../src/app');
+// var four = require('../src/app');
+var db = require('../src/db');
+var path = require('path');
+
+var LocalStorage = require('node-localstorage').LocalStorage;
+var localStoragePath = path.join(__dirname, 'test-localstorage');
+var localStorage = new LocalStorage(localStoragePath);
+
 
 describe('data', function() {
 
@@ -12,14 +19,14 @@ describe('data', function() {
 
 describe('data persistence', function() {
   beforeEach(function() {
-    four.initializeStorage();
+    db.initializeStorage(localStorage, data.words);
   });
 
   describe('save', function() {
     it('should persist current progress', function() {
-      expect(four.isComplete('cafe')).toEqual(false);
-      four.complete('cafe');
-      expect(four.isComplete('cafe')).toEqual(true);
+      expect(db.isComplete('cafe')).toEqual(false);
+      db.complete('cafe');
+      expect(db.isComplete('cafe')).toEqual(true);
     });
   });
 });
