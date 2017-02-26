@@ -1,3 +1,3 @@
-# four
+# [four](https://mtso.github.io/four)
 
-An app to help learn the definition of `[a-z]{4}` four-letter words.
+A (wip) app to learn `[a-z]{4}` four-letter words.
