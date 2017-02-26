@@ -3,9 +3,9 @@
 var express = require('express');
 
 var app = express();
-app.use('/four', express.static('public'));
+app.use('/four', express.static('docs'));
 
 var port = process.env.PORT || 1337;
 app.listen(port, function() {
-  console.log('Serving to localhost:' + port);
+  console.log('Serving to localhost:' + port + '/four');
 });
