@@ -5,13 +5,18 @@ const AnswerInput = React.createClass({
   getInitialState() {
     return {
       value: '',
-      highlight: [],
-      word: this.props.word
+      highlight: []
     };
+  },
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      value: '',
+      highlight: []
+    });
   },
   check(event) {
     event.preventDefault();
-    var highlight = quiz.compareWord(this.state.value, this.props.word);
+    var highlight = quiz.compareWord(this.state.value.toLowerCase(), this.props.word);
     this.setState({highlight: highlight});
   },
   handleChange(event) {
@@ -29,8 +34,7 @@ const AnswerInput = React.createClass({
     return (
       <div>
         <form>
-          <textarea onChange={this.handleChange}>{this.state.value}
-          </textarea>
+          <input type="text" onChange={this.handleChange} value={this.state.value} />
           <input type="submit" className="button secondary" onClick={this.check} value="Check" />
         </form>
         <div>
@@ -41,7 +45,7 @@ const AnswerInput = React.createClass({
   }
 });
 
-const Prompt = React.createClass({
+const PracticeApp = React.createClass({
   getInitialState() {
     return {word: this.props.word};
   },
@@ -74,9 +78,5 @@ const Prompt = React.createClass({
 });
 
 ReactDOM.render(<div id="app" className="row">
-  <Prompt word={four.quiz.getWord()}/>
-  <div className="large-1 columns">
-  </div>
-  <div className="large-11 columns">
-  </div>
+  <PracticeApp word={four.quiz.getWord()}/>
 </div>, document.getElementById('content'));
