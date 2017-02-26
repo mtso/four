@@ -4,7 +4,7 @@ function Manager(database, words) {
   var db = database;
   var progress = db.getItem(PROGRESS_KEY);
 
-  if (progress === null) {
+  if (!progress) {
     reset();
   } else {
     progress = JSON.parse(progress);
@@ -16,7 +16,7 @@ function Manager(database, words) {
   }
 
   function reset() {
-    var progress = words.reduce(function(obj, word) {
+    progress = words.reduce(function(obj, word) {
       obj[word] = false;
       return obj;
     }, {});

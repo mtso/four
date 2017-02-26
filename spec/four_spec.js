@@ -1,8 +1,8 @@
 var four = require('../src/app').four;
 var quiz = four.quiz;
+var data = four.data;
 
 describe('quiz', function() {
-  
   describe('highlight', function() {
     it('highlights the reference definition', function() {
       var sampleText = 'a light press';
@@ -28,6 +28,15 @@ describe('quiz', function() {
     });
   });
 
+  describe('highlightWord', function() {
+    it('highlights a given text using a given word', function() {
+      var sampleText = 'eight bits';
+      var highlightedText = 'A group of binary digits or <mark>bits</mark> (usually <mark>eight)</mark> operated on as a unit.'
+      
+      expect(quiz.highlightWord(sampleText, 'byte')).toEqual(highlightedText);
+    })
+  })
+
   describe('getWord', function() {
     it('gets a random word', function() {
       var word = quiz.getWord();
@@ -36,13 +45,30 @@ describe('quiz', function() {
   });
 
   describe('complete', function() {
-
-  })
+    it('marks a word as learned', function() {
+      var word = quiz.getWord();
+      expect(quiz.isComplete(word)).toEqual(false);
+      quiz.complete(word);
+      expect(quiz.isComplete(word)).toEqual(true);
+    });
+  });
 
   describe('reset', function() {
     it('resets the local storage progress', function() {
+      var word = quiz.getWord();
+      quiz.complete(word);
+      expect(quiz.isComplete(word)).toEqual(true);
+      quiz.reset();
+      expect(quiz.isComplete(word)).toEqual(false);
+    });
+  });
+});
 
-    })
-  })
-  
+describe('data', function() {
+
+  it('should have the same number of words as definition keys', function() {
+    var words = data.words;
+    var definitions = data.definitions;
+    expect(words.length).toEqual(Object.keys(definitions).length);
+  });
 });

@@ -2,12 +2,12 @@
 
 ~function() {
   var root = (module && module.exports) || window;
+  var localStorage = root.localStorage;
 
-  var path = require('path');
-  if (typeof root.localStorage === 'undefined' || root.localStorage === null) {
+  if (localStorage === undefined) {
     var LocalStorage = require('node-localstorage').LocalStorage;
-    var localStoragePath = path.join(__dirname, 'four-localstore');
-    var localStorage = new LocalStorage(localStoragePath);
+    var localStoragePath = [__dirname, 'four-localstore'].join('/');
+    localStorage = new LocalStorage(localStoragePath);
   }
 
   var data = require('./data');
@@ -21,5 +21,4 @@
     data: data,
     quiz: quiz
   }
-
 }();

@@ -18,7 +18,7 @@ function Quiz(db, data) {
   }
 
   function stripPunctuation (word) {
-    return word.replace(/[,.]/, '');
+    return word.replace(/[(),.]/g, '');
   }
 
   function compare(text, reference) {
@@ -48,19 +48,19 @@ function Quiz(db, data) {
       }
     }).join(' ');
   }
+
   function highlight(text, reference) {
     var comparison = compare(text, reference);
     return renderHighlight(comparison);
   }
 
-  this.compareDefinition = function(text, word) {
+  function highlightWord(text, word) {
     var reference = definitions[word][0];
-    return highlight(text, reference);
+    var comparison = compare(text, reference);
+    return renderHighlight(comparison);
   }
 
-  this.highlight = highlight;
-
-  this.getWord = function(current) {
+  function getWord(current) {
     var isIncompleteAndNotCurrent = function(word) {
       return !db.isComplete(word) && word !== current;
     }
@@ -68,6 +68,13 @@ function Quiz(db, data) {
     return randomWord(incompleteWords);
   }
 
+  this.highlight = highlight;
+  this.highlightWord = highlightWord;
+  this.getWord = getWord;
+
+  this.isComplete = db.isComplete;
+  this.complete = db.complete;
+  this.reset = db.reset;
 }
 
 module.exports = Quiz;
