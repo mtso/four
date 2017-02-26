@@ -1,6 +1,4 @@
 
-const w = wordDefinitions;
-
 const WordList = React.createClass({
   render() {
     var words = this.props.words;
@@ -16,7 +14,7 @@ const WordList = React.createClass({
 
 const DefinitionPage = React.createClass({
   renderDefinition(word) {
-    const definitions = w.define(word);
+    const definitions = this.props.data.definitions[word];
 
     return <div>
     <h3 id={word}>{word}</h3>
@@ -25,18 +23,16 @@ const DefinitionPage = React.createClass({
   },
   render() {
     return <div id="content">
-    {this.props.words.map(this.renderDefinition)}
+    {this.props.data.words.map(this.renderDefinition)}
     </div>;
   }
 })
 
-var words = w.getWords();
-
 ReactDOM.render(<div id="app" className="row">
   <div className="large-1 columns">
-    <WordList words={words} />
+    <WordList words={four.data.words} />
   </div>
   <div className="large-11 columns">
-    <DefinitionPage words={words} />
+    <DefinitionPage data={four.data} />
   </div>
 </div>, document.getElementById('content'));

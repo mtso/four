@@ -5,5 +5,8 @@ module.exports = {
   output: {
     filename: 'four.js',
     path: path.resolve(__dirname, 'docs')
+  },
+  node: {
+    fs: 'empty'
   }
 };
