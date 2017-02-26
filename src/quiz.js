@@ -1,6 +1,3 @@
-// var db = require('./db');
-var data = require('./data');
-
 /* 
 the quiz app needs to be able to 
 - get a random next word
@@ -28,7 +25,7 @@ function Quiz(db, data) {
       ];
     }
     reference = reference.split(' ');
-    return reference.map(function(word) { // word => {
+    return reference.map(function(word) {
       var pattern = new RegExp('(' + stripPunctuation( word.toLowerCase() ) + ')[,.]{0,1}');
       var match = text.match(pattern);
       if (match === null) {
@@ -57,7 +54,6 @@ function Quiz(db, data) {
   function highlightWord(text, word) {
     var reference = definitions[word][0];
     var comparison = compare(text, reference);
-    console.log(comparison);
     return renderHighlight(comparison);
   }
 
@@ -75,9 +71,8 @@ function Quiz(db, data) {
   }
 
   this.compareWord = compareWord;
-
-  this.highlight = highlight;
-  this.highlightWord = highlightWord;
+  this.highlight = highlight;          // unused
+  this.highlightWord = highlightWord;  // unused
   this.getWord = getWord;
 
   this.isComplete = db.isComplete;

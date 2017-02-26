@@ -3,6 +3,23 @@ var quiz = four.quiz;
 var data = four.data;
 
 describe('quiz', function() {
+  describe('compareWord', function() {
+    it('compares the text with a given word\'s definition', function() {
+      var sampleText = 'a small restaurant';
+      var highlight = [
+        {isMatch: true, text: 'A'},
+        {isMatch: true, text: 'small'},
+        {isMatch: true, text: 'restaurant'},
+        {isMatch: false, text: 'selling'},
+        {isMatch: false, text: 'light'},
+        {isMatch: false, text: 'meals'},
+        {isMatch: false, text: 'and'},
+        {isMatch: false, text: 'drinks.'},
+      ];
+      expect(quiz.compareWord(sampleText, 'cafe')).toEqual(highlight);
+    })
+  });
+
   describe('highlight', function() {
     it('highlights the reference definition', function() {
       var sampleText = 'a light press';
