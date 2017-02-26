@@ -65,10 +65,17 @@ describe('quiz', function() {
 });
 
 describe('data', function() {
-
   it('should have the same number of words as definition keys', function() {
     var words = data.words;
     var definitions = data.definitions;
     expect(words.length).toEqual(Object.keys(definitions).length);
+  });
+
+  it('should have the same words as definition keys', function() {
+    var words = data.words;
+    var definitions = data.definitions;
+    words.forEach(function(word) {
+      expect(definitions[word]).toBeDefined();
+    });
   });
 });

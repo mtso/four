@@ -1,7 +1,5 @@
-'use strict';
-
 ~function() {
-  var root = (module && module.exports) || window;
+  var root = this.window || module.exports;
   var localStorage = root.localStorage;
 
   if (localStorage === undefined) {
