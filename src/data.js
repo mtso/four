@@ -15,9 +15,7 @@ module.exports = {
     "mack",
     "macs",
     "made",
-    "maes",
     "mage",
-    "magg",
     "magi",
     "maha",
     "maid",
@@ -86,14 +84,8 @@ module.exports = {
       "A mackintosh.",
       "A type of personal computer.",
     ],
-    "maes": [
-      "  ",
-    ],
     "mage": [
       "A magician or learned person.",
-    ],
-    "magg": [
-      "  ",
     ],
     "magi": [
       "plural form of magus",
