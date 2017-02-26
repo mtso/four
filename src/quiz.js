@@ -17,7 +17,7 @@ function Quiz(db, data) {
   function stripPunctuation (word) {
     return word.replace(/[(),.]/g, '');
   }
-
+  
   function compare(text, reference) {
     if (text === '') {
       return [
