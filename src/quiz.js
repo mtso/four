@@ -57,6 +57,7 @@ function Quiz(db, data) {
   function highlightWord(text, word) {
     var reference = definitions[word][0];
     var comparison = compare(text, reference);
+    console.log(comparison);
     return renderHighlight(comparison);
   }
 
@@ -67,6 +68,13 @@ function Quiz(db, data) {
     var incompleteWords = words.filter(isIncompleteAndNotCurrent);
     return randomWord(incompleteWords);
   }
+
+  function compareWord(text, word) {
+    var reference = definitions[word][0];
+    return compare(text, reference);
+  }
+
+  this.compareWord = compareWord;
 
   this.highlight = highlight;
   this.highlightWord = highlightWord;

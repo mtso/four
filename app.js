@@ -1,11 +1,9 @@
-// local app server
+// Local app server.
 
 var express = require('express');
-
 var app = express();
 
 app.use('/four', express.static('docs'));
-
 app.use('/*', function(req, res) {
   res.redirect('/four');
 });
